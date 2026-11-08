@@ -124,6 +124,21 @@
         white-space: pre;
         max-height: 220px;
       }
+      .qr { margin-top: 28px; text-align: left; }
+      .qr summary { cursor: pointer; font-weight: 600; color: #9aa7e8; font-size: 0.95rem; }
+      .qr summary:hover { color: #c5cdf5; }
+      .qr-box {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 14px;
+      }
+      .qr-box img { width: 110px; height: 110px; display: block; }
+      .qr-box p { color: #3c4160; font-size: 0.85rem; line-height: 1.5; margin: 0; }
+      @media (max-width: 620px) { .qr { display: none; } }
       footer {
         margin-top: 36px;
         font-size: 0.8rem;
@@ -157,6 +172,15 @@
         </a>
       </div>
 
+      <!-- QR code : visible uniquement sur ordinateur, pour scanner depuis son téléphone -->
+      <details class="qr">
+        <summary>Vous êtes sur ordinateur ?</summary>
+        <div class="qr-box">
+          <img src="qr-code.svg" alt="QR code pointant vers mathiasvessiere.com" />
+          <p>Scannez ce code avec l'appareil photo de votre téléphone pour ouvrir cette page sur mobile et me contacter depuis Signal.</p>
+        </div>
+      </details>
+
       <!-- Clé publique PGP exportée depuis Proton -->
       <details class="pgp">
         <summary>Clé publique PGP (chiffrement des e-mails)</summary>
@@ -185,6 +209,6 @@ aeEeYRXDcXxJ7XbmIWFkvaZlxPq1Y3kJ
         document.getElementById("annee").textContent = new Date().getFullYear();
       </script>
     </main>
-  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="dAPiVomYp0867CaB27KUog==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" nonce="aBGSHSooqrNa84htqKGyjw==" data-cf-beacon='{"version":"2024.11.0","token":"36b4216ae2dc4d5488c249161e71fe1e","spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
