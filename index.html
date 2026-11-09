@@ -68,7 +68,7 @@
             rgba(255, 255, 255, 0.14), rgba(154, 167, 232, 0.06) 40%, transparent 65%);
         transition: opacity 0.4s ease;
       }
-      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      @media (prefers-reduced-motion: no-preference) {
         .card {
           transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
           transition: transform 0.25s ease-out;
@@ -250,25 +250,30 @@ aeEeYRXDcXxJ7XbmIWFkvaZlxPq1Y3kJ
       <script>
         document.getElementById("annee").textContent = new Date().getFullYear();
 
-        /* Effet relief : inclinaison + reflet suivant le pointeur (désactivé sur mobile et si mouvement réduit) */
+        /* Effet relief : inclinaison + reflet, à la souris sur PC et au doigt sur mobile (désactivé si mouvement réduit) */
         (function () {
           var card = document.querySelector(".card");
-          if (!card || !window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) return;
-          card.addEventListener("mousemove", function (e) {
+          if (!card || !window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+          function incline(x, y) {
             var r = card.getBoundingClientRect();
-            var px = (e.clientX - r.left) / r.width;
-            var py = (e.clientY - r.top) / r.height;
+            var px = (x - r.left) / r.width;
+            var py = (y - r.top) / r.height;
             card.style.setProperty("--ry", ((px - 0.5) * 11).toFixed(2) + "deg");
             card.style.setProperty("--rx", ((0.5 - py) * 11).toFixed(2) + "deg");
             card.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
             card.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
             card.style.setProperty("--glare", "1");
-          });
-          card.addEventListener("mouseleave", function () {
+          }
+          function remise() {
             card.style.setProperty("--glare", "0");
             card.style.setProperty("--rx", "0deg");
             card.style.setProperty("--ry", "0deg");
-          });
+          }
+          card.addEventListener("mousemove", function (e) { incline(e.clientX, e.clientY); });
+          card.addEventListener("mouseleave", remise);
+          card.addEventListener("touchstart", function (e) { incline(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+          card.addEventListener("touchmove", function (e) { incline(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+          card.addEventListener("touchend", remise);
         })();
       </script>
     </main>
